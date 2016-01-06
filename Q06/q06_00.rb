@@ -4,18 +4,14 @@
 start = Time.now
 
 def collatz(base, n)
-  if n.even? then
-    m = n / 2
-  else
-    m = n * 3 + 1
-  end
+  n = n.even? ? n / 2 : n * 3 + 1
 
-  if m == 1 then
+  if n == 1 then
     false
-  elsif m == base then
+  elsif n == base then
     true
   else
-    collatz(base, m)
+    collatz(base, n)
   end
 end
 
