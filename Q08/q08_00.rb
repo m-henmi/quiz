@@ -14,6 +14,7 @@ def examine(route)
   col = TIMES
   log = 1
   board[row][col] = 0
+  board[row][col + 1] = 0 
 
   route.each {|i|
     case i
@@ -51,7 +52,7 @@ end
 
 counter = 0
 
-(1..4).to_a.repeated_permutation(TIMES) {|route|
+(1..4).to_a.repeated_permutation(TIMES - 1) {|route|
   next if roundtrip?(route)
 
   if examine(route) then
@@ -59,7 +60,7 @@ counter = 0
   end
 }
 
-puts counter
+puts counter * 4
 
 puts "[" + (Time.now - start).to_s + " sec.]"
 
@@ -74,5 +75,6 @@ exclusion: 除外する
 
 初回 ：[370.0951683 sec.]
 2回目：[111.9464029 sec.]
+3回目：[27.8895952 sec.]
 
 =end
