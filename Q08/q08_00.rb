@@ -6,6 +6,7 @@ start = Time.now
 TIMES = 12
 RANGE = -TIMES..TIMES
 CELLS = RANGE.size
+EXCLUSION = ["13","31","24","42"]
 
 def examine(route)
   board = Array.new(CELLS){ Array.new(CELLS, -1)}
@@ -37,9 +38,22 @@ def examine(route)
   return true
 end
 
+def roundtrip?(route)
+  r = route.join
+  EXCLUSION.each{|e|
+    if r.include?(e) then
+      return true
+    end
+  }
+
+  return false
+end
+
 counter = 0
 
 (1..4).to_a.repeated_permutation(TIMES) {|route|
+  next if roundtrip?(route)
+
   if examine(route) then
     counter += 1
   end
@@ -56,7 +70,9 @@ puts "[" + (Time.now - start).to_s + " sec.]"
 経路の全パターンを列挙し、妥当な経路か判定する
 
 examine: 検査
+exclusion: 除外する
 
-初回：[370.0951683 sec.]
+初回 ：[370.0951683 sec.]
+2回目：[111.9464029 sec.]
 
 =end
